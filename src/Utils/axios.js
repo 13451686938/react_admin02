@@ -4,7 +4,8 @@ import actionCreator from '../Store/actionCreator'
 import store from '../Store/store'
 axios.interceptors.request.use(function(config){
   console.log('请求拦截', config)
-  let token = (getItem('token')) ? (getItem('token').token):''
+  let token = getItem('token')||''
+  console.log(token)
   config.data.token=token
   return config;
 },function (error){

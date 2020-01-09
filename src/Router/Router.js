@@ -4,18 +4,16 @@ import {HashRouter,Redirect,Route,Link} from 'react-router-dom'
 import Home from '../Page/Home/Home'
 import Admin from '../Page/Admin/Admin'
 import Login from '../Page/Login/Login'
+import OrderList from '../Page/Order/OrderList'
+import OrderDetail from '../Page/Order/OrderDetail'
 // const Admin = loadable (() => import('../Page/Admin/index.js'))
 class Router extends Component{
   render() {
     return (
       <Fragment>
         <HashRouter>
-          {/* 导航区 */}
-          <Link path='/home'></Link>
-          <Link path='/admin'></Link>
-          <Link path='/login'></Link>
           {/* 跳转区 */}
-          <Redirect exact from ='/' to='/admin'></Redirect>
+          <Redirect exact from ='/' to='/login'></Redirect>
           <Route path='/login' component = {Login}></Route>
           <Route path='/admin' render={()=>{
             return (
@@ -27,6 +25,7 @@ class Router extends Component{
                     <h2>food</h2>
                   )
                 }}></Route>
+                <Route path="/admin/order/list" component={OrderList}></Route>
               </Admin>
             )
           }}></Route>

@@ -57,17 +57,8 @@ let arr = [
     children: [
       {
         name:'订单列表',
-        path:'/food/list',
+        path:'/order/list',
         id:'3-0'
-      },
-      {
-        name:'订单添加',
-        path:'/food/add',
-        id:'3-1'
-      },{
-        name: '订单删除',
-        path:'/food/del',
-        id:'3-2'
       }
     ]
   },

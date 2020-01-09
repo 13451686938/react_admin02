@@ -1,7 +1,7 @@
 import axios from '../Utils/axios'
 // 登录接口
 export const userLogin = async (val)=>{
-  let res = await  axios.post('/hehe/v1/admin/user/login', val)
+  let res = await  axios.post('/hehe/admin/login', val)
   if(res.err!==0){
     throw res
   }
@@ -9,7 +9,7 @@ export const userLogin = async (val)=>{
 }
 // 登出接口
 export const userLogout = async (uid)=>{
-  let res = await  axios.post('/hehe/v1/admin/user/logout', {uid})
+  let res = await  axios.post('/hehe/admin/logout', {uid})
   if(res.err!==0){
     throw res
   }

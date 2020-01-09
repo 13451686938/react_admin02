@@ -11,9 +11,9 @@ class Login extends React.Component{
         userLogin(values)
         .then((res)=>{
           console.log('res',res)
-            setItem('rootId', res.rootList)
+            setItem('rootId', ['0','1','2','3','4'])
             setItem('uid', res.uid)
-            setItem('token', {'token':res.token,"ctime": new Date().getTime()})
+            setItem('token', res.token)
             message.success('登录成功3S后跳转首页',1,()=>{
               this.props.history.replace('/admin/home')
             })
@@ -58,9 +58,6 @@ class Login extends React.Component{
             <Form.Item>
               <Button type="primary" onClick={this.login} className="login-form-button">
                 Log in
-              </Button>
-              <Button type="primary" className="login-form-button">
-                Reg in
               </Button>
             </Form.Item>
           </div>
