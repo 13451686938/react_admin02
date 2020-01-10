@@ -7,9 +7,18 @@ export default (prevState=State,actions) => {
     case　types.SET_TOKEN_MODAL:
       newData.tokenModal = params
       break;
-    case types.CHANGE_ORDER:
+    case types.GET_SHOPS_LIST:
+      // console.log('GET_SHOPS_LIST', params)
+      newData.shopsList = params.foods
+      newData.allCount = params.list.allCount
+      break;
+    case types.SET_BOOL:
+      // console.log('SET_BOOL', params)
+      newData.bool = params
+      break;
     default:
       break;
   }
+  // console.log('newData', newData.bool, newData.shopsList)
   return newData
 }

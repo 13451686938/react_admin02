@@ -4,9 +4,12 @@ import {HashRouter,Redirect,Route,Link} from 'react-router-dom'
 import Home from '../Page/Home/Home'
 import Admin from '../Page/Admin/Admin'
 import Login from '../Page/Login/Login'
+import List from '../Page/Shop/List'
+import Add from '../Page/Shop/Add'
 import OrderList from '../Page/Order/OrderList'
-import OrderDetail from '../Page/Order/OrderDetail'
-// const Admin = loadable (() => import('../Page/Admin/index.js'))
+import Update from '../Page/Shop/Update'
+import Classify from '../Page/Shop/Classify'
+// const Admin = loadable (() => import('../Page/Admin/Admin'))
 class Router extends Component{
   render() {
     return (
@@ -20,12 +23,17 @@ class Router extends Component{
               <Admin>
                 <Redirect exact from='/admin' to='/admin/home'></Redirect>
                 <Route path='/admin/home' component = {Home}></Route>
-                <Route path='/admin/food' component = {()=>{
-                  return (
-                    <h2>food</h2>
+                <Route path='/admin/food' render = {()=>{
+                  return(
+                    <Fragment>
+                      <Route path='/admin/food/list' component = {List}></Route>
+                      <Route path='/admin/food/add' component = {Add}></Route>
+                      <Route path='/admin/food/update' component = {Update}></Route>
+                      <Route path='/admin/food/classify' component = {Classify}></Route>
+                    </Fragment>
                   )
                 }}></Route>
-                <Route path="/admin/order/list" component={OrderList}></Route>
+                 <Route path="/admin/order/list" component={OrderList}></Route>
               </Admin>
             )
           }}></Route>
