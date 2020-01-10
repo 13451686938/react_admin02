@@ -43,36 +43,41 @@ router.post('/findOneOrder',function(req,res){
   let orderId = req.body.orderId||''
   let iphone = req.body.iphone||''
   let person = req.body.person||''
-  let time = req.body.time||''
+  let time = ''
+  if(req.body.time){
+    time = {$regex:req.body.time}
+  }else{
+    time = ''
+  }
   let page=Number(req.body.page)||1
   let pagesize=Number(req.body.pagesize)||3
   let count=0
-  orderModel.find({$or:[{orderId},{$or:[{iphone},{person}]},{time}]})
+  orderModel.find({$or:[{orderId},{$or:[{iphone},{person}]},{time:time}]})
   .then((data) => {
     count=data.length
-    return orderModel.find({$or:[{orderId},{$or:[{iphone},{person}]},{time}]}).skip((page-1)*pagesize).limit(pagesize)
+    return orderModel.find({$or:[{orderId},{$or:[{iphone},{person}]},{time:time}]}).skip((page-1)*pagesize).limit(pagesize)
   })
   .then((data) => {
-    console.log(data)
     res.send({err:0,msg:'查询成功',list:data,tolcount:count})
   })
 })
 router.post('/findOrder',function(req,res){ 
-  console.log('1',req.body)
   let orderId = req.body.orderId||''
   let iphone = req.body.iphone||''
   let person = req.body.person||''
    let time = req.body.time||''
+   let regex = new RegExp(time)
   let page=Number(req.body.page)||1
   let pagesize=Number(req.body.pagesize)||2
   let count=0
-  orderModel.find({$and:[{orderId},{$or:[{iphone},{person}]}]})
+  let a = {$or:[{iphone},{person}]}
+  let b = {time:{$regex:regex}}
+  orderModel.find({$or:[{$and:[a,b]},{$and:[{orderId},b]},{$and:[a,{orderId}]},{$and:[{orderId},a,b]}]})
   .then((data) => {
     count=data.length
-    return orderModel.find({$and:[{orderId},{$or:[{iphone},{person}]}]}).skip((page-1)*pagesize).limit(pagesize)
+    return orderModel.find({$or:[{$and:[a,b]},{$and:[{orderId},b]},{$and:[a,{orderId}]},{$and:[{orderId},a,b]}]}).skip((page-1)*pagesize).limit(pagesize)
   })
   .then((data) => {
-    console.log(data)
     res.send({err:0,msg:'查询成功',list:data,tolcount:count})
   })
 })

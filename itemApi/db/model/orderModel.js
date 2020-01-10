@@ -17,7 +17,7 @@ let  orderSchema=new Schema({
     //   productNum:      {type:Number,required:true},
     //   productAllPrice:     {type:String,required:true}
     // }
-     time: { type: Date, default: Date.now },
+     time: { type: String, required: true },
  })
 var orderModel = mongoose.model('orders',orderSchema) 
 module.exports = orderModel

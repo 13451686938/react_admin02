@@ -1,1 +1,2 @@
 export const SET_TOKEN_MODAL='SET_TOKEN_MODAL'
+export const CHANGE_ORDER='CHANGE_ORDER'

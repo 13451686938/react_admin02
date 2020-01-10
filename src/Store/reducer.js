@@ -7,6 +7,7 @@ export default (prevState=State,actions) => {
     case　types.SET_TOKEN_MODAL:
       newData.tokenModal = params
       break;
+    case types.CHANGE_ORDER:
     default:
       break;
   }
