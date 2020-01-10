@@ -30,24 +30,21 @@ let arr = [
     icon:'',
     children: [
       {
-        name:'商品列表',
-        path:'/food/list',
+        name:'商品添加',
+        path:'/food/add',
         id:'2-0'
       },
       {
-        name:'商品分类',
-        path:'/food/classify',
+        name:'商品列表',
+        path:'/food/list',
         id:'2-1'
       },
       {
-        name:'商品添加',
-        path:'/food/add',
+        name:'分类管理',
+        path:'/food/classify',
         id:'2-2'
-      },{
-        name: '商品删除',
-        path:'/food/del',
-        id:'2-3'
       }
+      
     ]
   },
   {

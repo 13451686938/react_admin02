@@ -1,4 +1,9 @@
 import {getItem} from '../Utils/webStorage'
 export default {
-  tokenModal: getItem('token')?false:true
+  tokenModal: getItem('token')?false:true,
+  page: 1,
+  pageSize: 10,
+  allCount: 1,
+  shopsList: [1,2],
+  bool: "false"
 }

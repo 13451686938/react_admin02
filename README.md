@@ -1,5 +1,6 @@
 #常用插件
-npm i less less-loader antd babel-plugin-import echarts echarts-for-react redux react-redux axios react-router-dom 
+npm i less less-loader antd babel-plugin-import echarts echarts-for-react redux react-redux axios react-router-dom
+redux-thunk 
 
 #配置config文件
 less  babel-plugin-import(按需加载antd)  proxy(服务器代理)
