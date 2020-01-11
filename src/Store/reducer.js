@@ -7,8 +7,35 @@ export default (prevState=State,actions) => {
     case　types.SET_TOKEN_MODAL:
       newData.tokenModal = params
       break;
+    case types.GET_ORDER_LIST:
+      console.log('GET_SHOPS_LIST', params.list)
+        newData.orderList = params.list
+        newData.total = params.tolcount
+       break;
+    case types.CHANGE_ORDER_LIST:
+        newData.orderList = params.list
+        newData.total = params.tolcount
+        break;
+    case types.CHANGE_ORDER_PAGE:
+      newData.nowPage = params.page
+      newData.orderPageSize = params.pageSize
+      break;
+    case types.GET_SHOPS_LIST:
+      // console.log('GET_SHOPS_LIST', params)
+      newData.shopsList = params.foods
+      newData.allCount = params.list.allCount
+      break;
+    case types.SET_BOOL:
+      // console.log('SET_BOOL', params)
+      newData.bool = params
+      break;
+    case types.CHANGE_SHOPS_PAGE:
+      newData.page = params.page
+      newData.pageSize = params.pageSize
+      break;
     default:
       break;
   }
+  console.log('newData', newData.orderList, newData.total)
   return newData
 }

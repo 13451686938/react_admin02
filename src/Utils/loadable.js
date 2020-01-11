@@ -2,7 +2,7 @@ import React,{Fragment,Component} from 'react'
 import Loadable from 'react-loadable'
 // 这里是过渡效果组件
 export default (loader) => {
-  class Loading extends Component() {
+  class Loading extends Component {
     render () {
       return (
         <Fragment>

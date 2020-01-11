@@ -49,7 +49,7 @@ class CustomNav extends React.Component{
   }
   render () {
     return (
-      <Menu  mode="vertical"
+      <Menu  mode="inline"
         theme = 'dark'
       >
         {this.state.list.map((item,index)=>{

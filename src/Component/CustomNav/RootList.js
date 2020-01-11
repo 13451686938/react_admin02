@@ -88,28 +88,6 @@ let arr = [
       }
     ]
   },
-  // {
-  //   name:'管理员管理',
-  //   id:'5',
-  //   icon:'',
-  //   children: [
-  //     {
-  //       name:'管理员信息',
-  //       path:'/role/message',
-  //       id:'4-0'
-  //     },
-  //     {
-  //       name:'权限分类',
-  //       path:'/role/classify',
-  //       id:'4-1'
-  //     },{
-  //       name: '权限管理',
-  //       path:'/role/manage',
-  //       id:'4-2'
-  //     }
-  //   ]
-  // }
-
   {
     name:'管理员管理',
     id:'5',
