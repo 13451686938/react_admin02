@@ -1,5 +1,9 @@
 import React, { Component, Fragment } from 'react' 
 import { Form, Row, Col, Input, Button, Icon,Select,DatePicker,Typography } from 'antd'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import {withRouter} from 'react-router-dom'
+import actionCreator from '../../Store/actionCreator'
 import styles from './OrderHead.module.less'
 import { findOrder,findOneOrder} from '../../Api/order'
 const {Option} =Select
@@ -7,69 +11,65 @@ class OrderReact extends Component{
   constructor(){
     super()
     this.state={
-      date:'',
-      obj:{}
+      date:''
     }
   }  
   handleSearch = e => {
     e.preventDefault()
     this.props.form.validateFields((err, values) => {
       console.log('Received values of form: ', values)
-      let {obj,date} = this.state
-      for(const item in values){  
-        if(values[item]){ 
+      let {date} = this.state 
+      for(const item in values){
           if(item =='time'){
-            obj[item] = date
+               values[item] = date
           }
           if(item =='getFood'){
              if(!isNaN(values[item])){
-                obj.iphone=values[item]
+                values.iphone=values[item]
              }else{
-                obj.person=values[item]
+                values.person=values[item]
              }
           }
-          if(item == 'orderId'){
-             obj[item]=values[item]
-          }
+      }
+      let obj={}
+      for(const item in values){
+        if(values[item]){
+          obj[item]=values[item]
         }
       }
-      console.log('obj',obj)
-      if(Object.keys(obj).length==1){
+      if(Object.keys(obj).length==0){
+        this.props.getOrder()
+      }else if(Object.keys(obj).length==1){
         this.oneOrder(obj)
       }else{
         this.order(obj)
       }    
     })
   }
-
   oneOrder(obj){
     findOneOrder(obj)
     .then((res) =>{
-      console.log('1',res)
+      this.props.changeOrder(res)
     })
   }
   order(obj){
-    console.log('aaaaaaaaaa',obj)
     findOrder(obj) 
     .then((res) => {
-      console.log(res)
+      this.props.changeOrder(res)
     })
   }
   handleReset = () => {
     this.props.form.resetFields()
-  }
-  stateChange=()=>{
-
+    this.props.getOrder()
   }
   dateChange=(date,dateString)=>{
-    console.log(date,dateString)
     this.setState({date:dateString})
-    console.log('1',this.state.dateString)
   }
   render() {
+    let {obj} = this.state
     const { getFieldDecorator } = this.props.form;
     return (
-      <Form className={styles['ant-advanced-search-form']} onSubmit={this.handleSearch}>
+      <Form className={styles['ant-advanced-search-form']}>
         <Row>
           <Col style={{float:'left'}}>
             <Icon type="setting" />
@@ -79,7 +79,7 @@ class OrderReact extends Component{
           <Button  onClick={this.handleReset}>
             Clear
           </Button>
-          <Button type="primary" htmlType="submit" style={{ marginLeft: '8px' }}>
+          <Button type="primary" onClick={this.handleSearch} style={{ marginLeft: '8px' }}>
             Search
           </Button>
         </Col>
@@ -96,10 +96,10 @@ class OrderReact extends Component{
           {getFieldDecorator('time')(<DatePicker onChange={this.dateChange}></DatePicker>)}
           </Form.Item>
           <Form.Item label="订单状态" className={styles['ant-form-item']}>
-            <Select  defaultValue="全部" style={{ width: 120 }} onChange={this.atateChange}>
+          {getFieldDecorator('pay')(<Select  style={{ width: 120 }} placeholder='全部'>
               <Option value='未付款'>未付款</Option>
               <Option value='已付款'>已付款</Option>
-            </Select>
+            </Select>)}
           </Form.Item>
       </Row>
     
@@ -109,9 +109,6 @@ class OrderReact extends Component{
 }
 
 
-  // <div>
-  //   <WrappedAdvancedSearchForm />
-  //   <div className="search-result-list">Search Result List</div>
-  // </div>,
-
-export default Form.create({})(OrderReact)
+export default connect(state=>state,(dispatch)=>{
+  return bindActionCreators(actionCreator,dispatch)
+})(withRouter((Form.create({})(OrderReact))))

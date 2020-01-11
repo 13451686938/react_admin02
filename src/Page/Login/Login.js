@@ -11,8 +11,7 @@ class Login extends React.Component{
         userLogin(values)
         .then((res)=>{
           console.log('res',res)
-            setItem('rootId', ['0','1','2','3','4'])
-            setItem('uid', res.uid)
+            setItem('rootId', ['0','1','2','3','4','5'])
             setItem('token', res.token)
             message.success('登录成功3S后跳转首页',1,()=>{
               this.props.history.replace('/admin/home')

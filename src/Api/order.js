@@ -35,4 +35,11 @@ export const findOrder = async (val)=>{
   }
   return res
 }
+export const updateOrder = async (val)=>{
+  let res = await  axios.post('/hehe/order/updateOrder',val)
+  if(res.err!==0){
+    throw res
+  }
+  return res
+}
 

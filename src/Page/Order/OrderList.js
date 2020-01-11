@@ -1,17 +1,26 @@
 import React, { Component ,Fragment} from 'react'
-import {Card ,Table, Button,Pagination,Drawer, Checkbox, Menu, Dropdown, Icon, Form } from 'antd'
-import OrderDetail from './OrderDetail'
+import {Card ,Table, Button,Pagination,Icon,Modal,Drawer,Popconfirm} from 'antd'
 import OrderHead from './OrderHead'
+import {connect} from 'react-redux'
+import {bindActionCreators} from 'redux'
+import actionCreator from '../../Store/actionCreator'
+import styles from './OrderList.module.less'
 import { getOrderList,delOrderList,selectDelOrderList } from "../../Api/order"
+import OrderUpdate from './OrderUpdate'
+import OrderDetail from './OrderDetail'
 class OrderList extends Component{
   constructor(){
     super()
     this.state={  
       selectedRowKeys: [], // Check here to configure the default column
       loading: false,
-      data:[],
+      orderList:[],
       drawerShow:false,
+      temp:[],
+      updateId:'',
       detailData:{},
+      visible:false,
+      updateData:{},
       nowPage:1,
       pageSize: 3,
       total:50,
@@ -39,20 +48,22 @@ class OrderList extends Component{
         {
           title: '下单时间',
           key: 'time',
-          // dataIndex: 'time',
-          render:(record)=>{
-            return (record.time)
-          }
+          dataIndex:'time'
         },
         {
           title: '操作',
           key: 'action',
           render: (record) => (
-            <span>
+            <span style={{display:'flex',justifyContent:'space-around'}}>
              <Button onClick={()=>{
-                this.setState({detailData:record,drawerShow:true})
+                this.setState({drawerShow:true,detailData:record})
               }}>查看</Button>
-             <Button onClick={this.del.bind(this,record._id)}>删除</Button>
+             <Popconfirm title="Are you sure？" onConfirm={this.del.bind(this,record._id)} onCancel={()=>{}} >
+                <Button >删除</Button>
+             </Popconfirm>
+             <Button onClick={()=>{
+               this.setState({visible:true,updateData:record})
+             }}>更新</Button>
             </span>
           )
         }
@@ -64,27 +75,25 @@ class OrderList extends Component{
     let {selectedRowKeys,nowPage,pageSize}=this.state
     selectDelOrderList(selectedRowKeys)
     .then((res) => {
-      this.getTableList(nowPage,pageSize)
       this.setState({
         selectedRowKeys: [],
         loading: false,
-      })
+      }) 
+      this.getTableList(nowPage,pageSize)
     })
   }
-
   onSelectChange = selectedRowKeys => {
-    console.log('selectedRowKeys changed: ', selectedRowKeys)
     this.setState({ selectedRowKeys })
   }
   getTableList(nowPage,pageSize){
-    getOrderList(nowPage,pageSize)
-    .then((res) => {
-      console.log(res)
-      this.setState({data:res.list,total:res.tolcount})
-    })
+    this.props.getOrder(nowPage,pageSize)
+    this.setState({orderList:this.props.orderList,total:this.props.total})
   }
   componentDidMount(){
     this.getTableList()
+  }
+  componentWillReceiveProps(props){
+    this.setState({orderList:props.orderList,total:props.total,nowPage:props.nowPage,pageSize:props.orderPageSize})
   }
   del(id){
     delOrderList(id)
@@ -93,11 +102,26 @@ class OrderList extends Component{
       this.getTableList(nowPage,pageSize)
     })
   }
-  onClose=()=>{
+  change(){
+    this.setState({visible:true})
+  }
+  handleOk = e => { 
+    let {nowPage,pageSize} = this.state
+    this.setState({
+      visible: false
+    }) 
+    this.getTableList(nowPage,pageSize)
+  }
+  handleCancel = e => {
+    this.setState({
+      visible: false
+    })
+  }
+  closeDrawer=()=>{
     this.setState({drawerShow:false})
   }
   render(){
-    let {columns,data,detailData,nowPage,total,pageSize,loading, selectedRowKeys } = this.state 
+    let {columns,updateData,detailData,orderList,nowPage,total,pageSize,loading, selectedRowKeys,visible,drawerShow } = this.state 
     const rowSelection = {
       selectedRowKeys,
       onChange: this.onSelectChange,
@@ -106,12 +130,12 @@ class OrderList extends Component{
     return (
       <Fragment>
         <OrderHead></OrderHead>
-        <div style={{marginTop:'10px',marginBottom:'10px',padding:' 10px',border:'1px solid #e8e8e8',fontSize:'16px'}}>
+        <div className={styles.listItem}>
             <Icon type="setting" />
             <span style={{paddingLeft:'5px'}}>数据展示</span>
         </div>
-        <div>
-          <Table rowSelection={rowSelection} rowKey={record =>record._id} columns={columns} dataSource={data} pagination={false} bordered={true}
+        <div className={styles.listCenter}>
+          <Table rowSelection={rowSelection} rowKey={record =>record._id} columns={columns} dataSource={this.props.orderList} pagination={false} bordered={true} 
           style={{textAlign:'center'}}/> 
           <div style={{display:'flex',justifyContent:'space-between',marginTop:'10px'}}>
           <Button type="primary" onClick={this.start} disabled={!hasSelected} loading={loading}>
@@ -119,23 +143,33 @@ class OrderList extends Component{
           </Button>
           <Pagination  total={total} pageSize={pageSize} 
         onChange={(nextPage,pageSize)=>{
-          console.log(nextPage,pageSize)
           this.getTableList(nextPage,pageSize)
-          this.setState({nowPage:nextPage,pageSize})
+          this.props.changePage({page:nextPage,pageSize})
         }} />
           </div>
         </div>
         <Drawer
-            width={640}
-            placement="right"
-            closable={false}
-            onClose={this.onClose}
-            visible={this.state.drawerShow}
-          >
-            <OrderDetail detailData={detailData}></OrderDetail>
-          </Drawer>
+          title="订单详情"
+          placement="right"
+          closable={false}
+          onClose={this.closeDrawer}
+          visible={drawerShow}
+          width={700}
+        >
+          <OrderDetail detailData={detailData} closeDrawer={this.closeDrawer} ></OrderDetail>
+        </Drawer>
+        <Modal
+          title="订单编辑"
+          visible={visible}
+          onCancel={this.handleCancel}
+          footer={null}
+        >
+          <OrderUpdate updateData={updateData} onOk={this.handleOk} onCancel={this.handleCancel} ></OrderUpdate>
+      </Modal>
       </Fragment>
     )
    }
 }
-export default OrderList
+export default connect(state=>state,(dispatch)=>{
+  return bindActionCreators(actionCreator,dispatch)
+})(OrderList)

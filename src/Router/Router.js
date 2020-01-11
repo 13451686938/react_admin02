@@ -33,7 +33,14 @@ class Router extends Component{
                     </Fragment>
                   )
                 }}></Route>
-                 <Route path="/admin/order/list" component={OrderList}></Route>
+                <Route path='/admin/order' render = {()=>{
+                  return(
+                    <Fragment>
+                      <Route path="/admin/order/list" component={OrderList}></Route>
+                    </Fragment>
+                  )
+                }}></Route>
+                
               </Admin>
             )
           }}></Route>

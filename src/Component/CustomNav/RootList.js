@@ -56,7 +56,7 @@ let arr = [
         name:'订单列表',
         path:'/order/list',
         id:'3-0'
-      }
+      },
     ]
   },
   {

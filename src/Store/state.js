@@ -5,5 +5,9 @@ export default {
   pageSize: 10,
   allCount: 1,
   shopsList: [1,2],
-  bool: "false"
+  bool: "false",
+  orderList:[],
+  total:50,
+  nowPage:1,
+  orderPageSize:3,
 }
