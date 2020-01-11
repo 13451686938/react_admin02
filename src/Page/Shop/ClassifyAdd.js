@@ -69,7 +69,6 @@ class List extends Component{
     let {num,one,two,key,data} = this.state
     return (
       <Fragment>
-       
         <Card className = {Styles.add}>
           <Button style={{float:'right'}} onClick = {()=> {
             this.setState({classToggle: true})
@@ -94,7 +93,6 @@ class List extends Component{
           }}></input><br/>
           <Button onClick = {this.submit}>商品分类添加</Button>
         </Card>
-        
       </Fragment>
     )
   }

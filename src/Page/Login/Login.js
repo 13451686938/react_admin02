@@ -10,7 +10,7 @@ class Login extends React.Component{
       if (!err) {
         userLogin(values)
         .then((res)=>{
-          console.log('res',res)
+          console.log('log ok',res)
             setItem('rootId', ['0','1','2','3','4','5'])
             setItem('token', res.token)
             message.success('登录成功3S后跳转首页',1,()=>{
@@ -18,6 +18,7 @@ class Login extends React.Component{
             })
         })
         .catch((err)=>{
+          console.log('log not ok', err)
           message.error('log is not ok')
         })
       }

@@ -29,6 +29,10 @@ export default (prevState=State,actions) => {
       // console.log('SET_BOOL', params)
       newData.bool = params
       break;
+    case types.CHANGE_SHOPS_PAGE:
+      newData.page = params.page
+      newData.pageSize = params.pageSize
+      break;
     default:
       break;
   }
