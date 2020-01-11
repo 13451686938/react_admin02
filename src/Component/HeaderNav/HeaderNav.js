@@ -33,7 +33,7 @@ class HeaderNav extends Component {
       <Menu>
         {arr.map((item,index)=>{
           return (
-            <Menu.Item onClick= {this.jump.bind(this,item.id)}>
+            <Menu.Item key={index} onClick= {this.jump.bind(this,item.id)}>
               <span>
                 <Icon type={item.icon}></Icon>
                 {item.name}

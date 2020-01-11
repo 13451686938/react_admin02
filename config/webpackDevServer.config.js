@@ -95,13 +95,13 @@ module.exports = function(proxy, allowedHost) {
           "^/hehe":""
         }
       },
-      '/api': {
-        target:'https://47.95.207.1/api/',
-        changeOrigin:true,
-        pathRewrite:{
-          '^/api':''
-        }
-      }
+      // '/api': {
+      //   target:'http://localhost:3003/api/',
+      //   changeOrigin:true,
+      //   pathRewrite:{
+      //     '^/api':''
+      //   }
+      // }
     },
     before(app, server) {
       if (fs.existsSync(paths.proxySetup)) {

@@ -16,7 +16,7 @@ class CustomNav extends React.Component{
     this.setState({
       list: List
     })
-   console.log('list',this.state.list)
+  //  console.log('list',this.state.list)
   }
   renderMenuItem(item) {
     if(item.children){

@@ -11,9 +11,10 @@ class Login extends React.Component{
         userLogin(values)
         .then((res)=>{
           console.log('res',res)
+            // setItem('rootId', ['0','1','2','3','4','5'])
             setItem('rootId', res.rootList)
-            setItem('uid', res.uid)
-            setItem('token', {'token':res.token,"ctime": new Date().getTime()})
+            // setItem('rootId',res.list)
+            setItem('token',res.token)
             message.success('登录成功3S后跳转首页',1,()=>{
               this.props.history.replace('/admin/home')
             })
@@ -33,37 +34,37 @@ class Login extends React.Component{
     return (
       <Card className={Styles.login}>
         <div className="login-form">
-            <Form.Item>
-           { getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' },
-            { max:9, message: '最大长度为9' },
-            { min:3, message: '最小长度为3' }
-          ],
-          })(
-            <Input
-              prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-              placeholder="Username"
-            />
-          )}
-            </Form.Item>
-            <Form.Item>
-              {getFieldDecorator('passWord', {})(
-                <Input
-                  prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                  placeholder="PassWord"
-                />
-              )}
-            </Form.Item>
-            
-            <Form.Item>
-              <Button type="primary" onClick={this.login} className="login-form-button">
-                Log in
-              </Button>
-              <Button type="primary" className="login-form-button">
-                Reg in
-              </Button>
-            </Form.Item>
-          </div>
+          <Form.Item>
+            { getFieldDecorator('userName', {
+              rules: [{ required: true, message: 'Please input your username!' },
+              { max:9, message: '最大长度为9' },
+              { min:3, message: '最小长度为3' }
+            ],
+            })(
+              <Input
+                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder="Username"
+              />
+            )}
+          </Form.Item>
+          <Form.Item>
+            {getFieldDecorator('passWord', {})(
+              <Input
+                prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                placeholder="PassWord"
+              />
+            )}
+          </Form.Item>
+          
+          <Form.Item>
+            <Button type="primary" onClick={this.login} className="login-form-button">
+              Log in
+            </Button>
+            <Button type="primary" className="login-form-button">
+              Reg in
+            </Button>
+          </Form.Item>
+        </div>
       </Card>
     )
   }
