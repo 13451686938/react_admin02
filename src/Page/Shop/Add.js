@@ -2,6 +2,7 @@ import React,{Component,Fragment} from 'react'
 import {foodAdd} from '../../Api/Shop'
 import Styles from './css/add.module.less'
 
+import cityOptions from './tableData/cityOptions'
 import {connect} from 'react-redux'
 import actionCreator from '../../Store/actionCreator'
 import {bindActionCreators} from 'redux'
@@ -66,7 +67,7 @@ class List extends Component{
     fileReader.onload = ()=> {
       message.success('图片上传ok')
       this.setState({img:fileReader.result})
-       console.log('result', fileReader.result)
+      //  console.log('result', fileReader.result)
     }
    
   }
@@ -86,7 +87,6 @@ class List extends Component{
     let {name,price,img,foodType,desc} = this.state
     return (
       <Fragment>商品添加
-       
         <Card className = {Styles.add}>
           名字：<input type='text' value={name} onChange = {(e)=>{
             this.setState({name:e.target.value})
@@ -94,6 +94,14 @@ class List extends Component{
           价格：<input type='text' value={price} onChange = {(e)=>{
             this.setState({price:e.target.value})
           }}></input><br/>
+          所在地: <Cascader className = {Styles.cascader}
+            defaultValue={['河南省', '南阳市','邓州市']}
+            options={cityOptions}
+            onChange = {(value)=>{
+              console.log('e',value,value.join('/'))
+              
+            }
+            }/><br/>
           类型：<Cascader className = {Styles.cascader}
             defaultValue={['服装', 'T恤']}
             options={this.state.options}

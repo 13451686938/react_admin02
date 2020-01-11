@@ -7,6 +7,7 @@ export const userLogin = async (val)=>{
   }
   return res
 }
+
 // 登出接口
 export const userLogout = async (uid)=>{
   let res = await  axios.post('/hehe/admin/logout', {uid})

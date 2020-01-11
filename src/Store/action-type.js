@@ -1,3 +1,4 @@
 export const SET_TOKEN_MODAL='SET_TOKEN_MODAL'
 export const GET_SHOPS_LIST=' GET_SHOPS_LIST'
 export const SET_BOOL = 'SET_BOOL'
+export const CHANGE_SHOPS_PAGE = 'CHANGE_SHOPS_PAGE'

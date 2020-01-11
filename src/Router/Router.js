@@ -21,7 +21,7 @@ class Router extends Component{
           <Route path='/admin' render={()=>{
             return (
               <Admin>
-                <Redirect exact from='/admin' to='/admin/home'></Redirect>
+                <Redirect exact from='/admin' to='/admin/food/list'></Redirect>
                 <Route path='/admin/home' component = {Home}></Route>
                 <Route path='/admin/food' render = {()=>{
                   return(

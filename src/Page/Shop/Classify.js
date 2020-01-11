@@ -132,9 +132,9 @@ class Classify extends Component{
           onClose={()=>{
             this.setState({visible: false})
           }}
-          visible={this.state.visible}
+          visible={this.state.visible} returnData = {this.props.data} t
         >
-          <ClassifyUpdate toUpdate = {this.state.toUpdate} returnData = {(val) => this.returnData(val)}></ClassifyUpdate>
+          <ClassifyUpdate toUpdate = {this.state.toUpdate}  returnData = {(val) => this.returnData(val)}></ClassifyUpdate>
         </Drawer>
       </Fragment>
     )
