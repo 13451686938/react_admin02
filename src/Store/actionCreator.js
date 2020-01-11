@@ -4,6 +4,15 @@ export default {
   setTokenModal(params=true){
     return {type:types.SET_TOKEN_MODAL,params}
   },
+  changeOrderList(params){
+    return (dispatch)=>{
+      let action={
+        type:types.CHANGE_ORDER,
+        params:params
+      }
+      dispatch(action)
+    }
+  },
   // 异步方法的使用需要dispatch(action)
   GET_SHOPS_LIST  (params){
     return (dispatch) => {

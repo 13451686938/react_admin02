@@ -62,7 +62,7 @@ class OrderReact extends Component{
 
   }
   dateChange=(date,dateString)=>{
-    // console.log(date,dateString)
+    console.log(date,dateString)
     this.setState({date:dateString})
     console.log('1',this.state.dateString)
   }
