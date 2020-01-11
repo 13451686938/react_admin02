@@ -30,23 +30,19 @@ let arr = [
     icon:'',
     children: [
       {
+        name:'商品添加',
+        path:'/food/add',
+        id:'2-0'
+      }, 
+      {
         name:'商品列表',
         path:'/food/list',
-        id:'2-0'
-      },
-      {
-        name:'商品分类',
-        path:'/food/classify',
         id:'2-1'
       },
       {
         name:'商品添加',
-        path:'/food/add',
+        path:'/food/classify',
         id:'2-2'
-      },{
-        name: '商品删除',
-        path:'/food/del',
-        id:'2-3'
       }
     ]
   },
@@ -57,17 +53,8 @@ let arr = [
     children: [
       {
         name:'订单列表',
-        path:'/food/list',
+        path:'/order/list',
         id:'3-0'
-      },
-      {
-        name:'订单添加',
-        path:'/food/add',
-        id:'3-1'
-      },{
-        name: '订单删除',
-        path:'/food/del',
-        id:'3-2'
       }
     ]
   },
